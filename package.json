@@ -1,23 +1,34 @@
 {
   "name": "resource-factory",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A decorator to turn classes into a store factory",
+  "main": "dist/ResourceFactory.js",
+  "types": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --config webpack.config.js --watch"
+    "build": "tsc"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ToothpickFactory/ResourceFactory"
+  },
+  "bugs": {
+    "url": "https://github.com/ToothpickFactory/ResourceFactory/issues"
+  },
+  "homepage": "https://github.com/ToothpickFactory/ResourceFactory",
+  "keywords": [
+    "store",
+    "factory",
+    "ResourceFactory"
+  ],
+  "author": "Austin Lovell",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
     "rxjs": "^6.3.3"
   },
   "devDependencies": {
-    "ts-loader": "^5.2.1",
-    "tsconfig-paths-webpack-plugin": "^3.2.0",
-    "typescript": "^3.1.1",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2"
+    "typescript": "^3.1.1"
   }
 }

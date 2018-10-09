@@ -4,7 +4,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const webpackConfig = {
 	mode: 'development',
-	entry: 'src/example/app.ts',
+	entry: './app.ts',
 	watchOptions: {
 		ignored: /node_modules/
 	},

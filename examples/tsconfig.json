@@ -4,12 +4,13 @@
 		"module": "commonjs",
 		"sourceMap": true,
 		"outDir": "./dist",
-		"experimentalDecorators": true
+		"experimentalDecorators": true,
+		"baseUrl": "."
 	},
 	"exclude": [
 		"node_modules"
 	],
 	"include": [
-		"./src/**/*.ts"
+		"./**/*.ts"
 	]
 }
