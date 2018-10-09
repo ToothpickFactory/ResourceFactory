@@ -19,6 +19,6 @@
     "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
-    "rxjs": "^6.3.3"
+    "resource-factory": "^1.0.0"
   }
 }
