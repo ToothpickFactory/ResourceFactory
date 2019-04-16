@@ -1,12 +1,12 @@
 {
   "name": "resource-factory",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A decorator to turn classes into a store factory",
   "main": "dist/ResourceFactory.js",
   "sideEffects": false,
   "types": "",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc -p tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -24,12 +24,11 @@
   "author": "Austin Lovell",
   "license": "MIT",
   "files": [
-    "dist"
+    "dist.browser"
   ],
-  "peerDependencies": {
-    "rxjs": "^6.3.3"
-  },
-  "devDependencies": {
-    "typescript": "^3.1.1"
+  "peerDependencies": {},
+  "devDependencies": {},
+  "dependencies": {
+    "typescript": "^3.4.3"
   }
 }
