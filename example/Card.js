@@ -9,11 +9,13 @@ import { ResourcePubSub } from '../dist/ResourcePubSub.js';
 let Card = class Card {
     constructor(data) {
         this.name = data.name;
-        this.guid = data.guid;
+        this.guid = data.guid || Math.random().toString(36).substr(2, 9);
     }
 };
 Card = __decorate([
-    ResourceFactory(),
+    ResourceFactory({
+        find: (guid) => Card.resources.find((resource) => resource.guid === guid)
+    }),
     ResourcePubSub
 ], Card);
 export { Card };

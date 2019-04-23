@@ -14,5 +14,5 @@ const unsub1 = Card.subscribe(resources => {
 });
 
 document.querySelector('#add').addEventListener('click', () => {
-    Card.add({name: 'bob'});
+    Card.create({name: 'bob'});
 });
