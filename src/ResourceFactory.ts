@@ -37,7 +37,7 @@ export function ResourceFactory(test) {
 			Clazz.publish();
 		}
 
-		// This should be a property of a since resource
+		// This should be a property of a single resource
 		// Clazz.update = (resource) => {
 		// 	const idx = Clazz.resources.findIndex(_resource => _resource.guid === resource.guid);
 		// 	const newResource = Object.assign({}, Clazz.resources[idx], resource);

@@ -1,10 +1,10 @@
-export function PubSub<T extends {new(...args:any[]):{}}>(constructor:T) {
+export function ResourcePubSub<T extends {new(...args:any[]):{}}>(constructor:T) {
 	return class extends constructor {
 		subs = [];
 
 		publish(data: any){
 			this.subs.forEach(sub => sub(data))
-		};
+		}
 
 		unsubscribe(sub: Function) {
 			this.subs = this.subs.filter(_sub => _sub !== sub);

@@ -5,7 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { ResourceFactory } from '../dist/ResourceFactory.js';
-import { PubSub } from '../dist/PubSub.js';
+import { ResourcePubSub } from '../dist/ResourcePubSub.js';
 let Card = class Card {
     constructor(data) {
         this.name = data.name;
@@ -14,6 +14,6 @@ let Card = class Card {
 };
 Card = __decorate([
     ResourceFactory(),
-    PubSub
+    ResourcePubSub
 ], Card);
 export { Card };
