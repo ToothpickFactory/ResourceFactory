@@ -21,6 +21,7 @@ export function ResourceFactory(options: IResourceFactory = {}) {
 
 		Clazz.subscribe = function(sub: Function): Function {
 			Clazz.subs.push(sub);
+			sub(this.resources);
 			return () => Clazz.unsubscribe(sub);
 		}
 

@@ -63,7 +63,7 @@ Removes the given in class instance from the class store and notifies all subscr
 Calls all subscribers and sends the resources array
 
 #### \<Class>.subscribe(function) ⇒ <code>unsubscribeFunction</code>
-Registers a function to the class to be called any time publish is called. Returns a function to be invoked when unregistering from the class.
+Registers a function to the class to be called any time publish is called. Returns a function to be invoked when unregistering from the class. Also immediatly calls the passed in function and sends the current state of resources.
 
 #### \<Class>.unsubscribe(function) ⇒ <code>void</code>
 Removes a registered function from the subscriber array.

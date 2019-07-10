@@ -2,7 +2,7 @@
   "name": "resource-factory",
   "version": "1.0.3",
   "description": "A decorator to turn classes into a store factory",
-  "main": "dist/ResourceFactory.js",
+  "main": "dist/index.js",
   "sideEffects": false,
   "types": "",
   "scripts": {
