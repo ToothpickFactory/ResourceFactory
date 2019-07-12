@@ -1,0 +1,28 @@
+import { createEvent as __stencil_createEvent } from "@stencil/core";
+import { getConnect as __stencil_getConnect } from "@stencil/core";
+import { getContext as __stencil_getContext } from "@stencil/core";
+import { getElement as __stencil_getElement } from "@stencil/core";
+import { Host as __stencil_Host } from "@stencil/core";
+import { h as __stencil_h } from "@stencil/core";
+import { registerInstance as __stencil_registerInstance } from "@stencil/core";
+export class ContextConsumer {
+    constructor(hostRef) {
+        __stencil_registerInstance(this, hostRef);
+        this.context = {};
+        this.renderer = () => null;
+    }
+    connectedCallback() {
+        if (this.subscribe != null) {
+            this.unsubscribe = this.subscribe(this.el, 'context');
+        }
+    }
+    disconnectedCallback() {
+        if (this.unsubscribe != null) {
+            this.unsubscribe();
+        }
+    }
+    render() {
+        return this.renderer(Object.assign({}, this.context));
+    }
+    get el() { return __stencil_getElement(this); }
+}

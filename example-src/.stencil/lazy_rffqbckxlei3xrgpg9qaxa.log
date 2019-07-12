@@ -1,0 +1,22 @@
+import { createEvent as __stencil_createEvent } from "@stencil/core";
+import { getConnect as __stencil_getConnect } from "@stencil/core";
+import { getContext as __stencil_getContext } from "@stencil/core";
+import { getElement as __stencil_getElement } from "@stencil/core";
+import { Host as __stencil_Host } from "@stencil/core";
+import { h as __stencil_h } from "@stencil/core";
+import { registerInstance as __stencil_registerInstance } from "@stencil/core";
+import { h } from '@stencil/core';
+import { Todo } from '../../models/Todo/Todo';
+export class AppHome {
+    constructor(hostRef) {
+        __stencil_registerInstance(this, hostRef);
+        this.todos = [];
+    }
+    componentWillLoad() {
+        this.unsubscribe = Todo.subscribe((todos) => this.todos = todos);
+    }
+    render() {
+        return (h("div", { class: 'todo-view' }, h("ul", null, this.todos.map(todo => h("li", null, todo.text, h("button", { onClick: () => Todo.remove(todo) }, "X")))), h("button", { onClick: () => this.unsubscribe() }, "Unsubscribe")));
+    }
+    static get style() { return "STYLE_TEXT_PLACEHOLDER:todo-view"; }
+}

@@ -1,0 +1,1 @@
+System.register(["./p-1047d59d.system.js"],function(){"use strict";var t,e;return{setters:[function(s){t=s.p;e=s.b}],execute:function(){t().then(function(t){return e([["p-qkiue7sj.system",[[0,"app-root",{todoViews:[32],subscriberCount:[32]}],[0,"todo-view",{todos:[32]}]]]],{resourcesUrl:t})})}}});

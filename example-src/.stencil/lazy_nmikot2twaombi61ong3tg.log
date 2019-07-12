@@ -1,0 +1,88 @@
+import { createEvent as __stencil_createEvent } from "@stencil/core";
+import { getConnect as __stencil_getConnect } from "@stencil/core";
+import { getContext as __stencil_getContext } from "@stencil/core";
+import { getElement as __stencil_getElement } from "@stencil/core";
+import { Host as __stencil_Host } from "@stencil/core";
+import { h as __stencil_h } from "@stencil/core";
+import { registerInstance as __stencil_registerInstance } from "@stencil/core";
+import { h } from '@stencil/core';
+import createHistory from '../../utils/createBrowserHistory';
+import createHashHistory from '../../utils/createHashHistory';
+import ActiveRouter from '../../global/active-router';
+const getLocation = (location, root) => {
+    // Remove the root URL if found at beginning of string
+    const pathname = location.pathname.indexOf(root) == 0 ?
+        '/' + location.pathname.slice(root.length) :
+        location.pathname;
+    return Object.assign({}, location, { pathname });
+};
+const HISTORIES = {
+    'browser': createHistory,
+    'hash': createHashHistory
+};
+/**
+  * @name Router
+  * @module ionic
+  * @description
+ */
+export class Router {
+    constructor(hostRef) {
+        __stencil_registerInstance(this, hostRef);
+        this.root = '/';
+        this.historyType = 'browser';
+        // A suffix to append to the page title whenever
+        // it's updated through RouteTitle
+        this.titleSuffix = '';
+        this.routeViewsUpdated = (options = {}) => {
+            if (this.history && options.scrollToId && this.historyType === 'browser') {
+                const elm = this.history.win.document.getElementById(options.scrollToId);
+                if (elm) {
+                    return elm.scrollIntoView();
+                }
+            }
+            this.scrollTo(options.scrollTopOffset || this.scrollTopOffset);
+        };
+        this.isServer = __stencil_getContext(this, "isServer");
+        this.queue = __stencil_getContext(this, "queue");
+    }
+    componentWillLoad() {
+        this.history = HISTORIES[this.historyType](this.el.ownerDocument.defaultView);
+        this.history.listen((location) => {
+            location = getLocation(location, this.root);
+            this.location = location;
+        });
+        this.location = getLocation(this.history.location, this.root);
+    }
+    scrollTo(scrollToLocation) {
+        const history = this.history;
+        if (scrollToLocation == null || this.isServer || !history) {
+            return;
+        }
+        if (history.action === 'POP' && Array.isArray(history.location.scrollPosition)) {
+            return this.queue.write(() => {
+                if (history && history.location && Array.isArray(history.location.scrollPosition)) {
+                    history.win.scrollTo(history.location.scrollPosition[0], history.location.scrollPosition[1]);
+                }
+            });
+        }
+        // okay, the frame has passed. Go ahead and render now
+        return this.queue.write(() => {
+            history.win.scrollTo(0, scrollToLocation);
+        });
+    }
+    render() {
+        if (!this.location || !this.history) {
+            return;
+        }
+        const state = {
+            historyType: this.historyType,
+            location: this.location,
+            titleSuffix: this.titleSuffix,
+            root: this.root,
+            history: this.history,
+            routeViewsUpdated: this.routeViewsUpdated
+        };
+        return (h(ActiveRouter.Provider, { state: state }, h("slot", null)));
+    }
+    get el() { return __stencil_getElement(this); }
+}

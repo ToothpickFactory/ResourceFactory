@@ -1,0 +1,55 @@
+System.register(['./p-ad6259f2.system.js', './p-f62c0fdc.system.js'], function (exports) {
+    'use strict';
+    var registerInstance, getElement, ActiveRouter;
+    return {
+        setters: [function (module) {
+                registerInstance = module.r;
+                getElement = module.c;
+            }, function (module) {
+                ActiveRouter = module.A;
+            }],
+        execute: function () {
+            /**
+              * Updates the document title when found.
+              *
+              * @name RouteTitle
+              * @description
+             */
+            var RouteTitle = /** @class */ (function () {
+                function RouteTitle(hostRef) {
+                    registerInstance(this, hostRef);
+                    this.titleSuffix = '';
+                    this.pageTitle = '';
+                }
+                RouteTitle.prototype.updateDocumentTitle = function () {
+                    var el = this.el;
+                    if (el.ownerDocument) {
+                        el.ownerDocument.title = "" + this.pageTitle + (this.titleSuffix || '');
+                    }
+                };
+                RouteTitle.prototype.componentWillLoad = function () {
+                    this.updateDocumentTitle();
+                };
+                Object.defineProperty(RouteTitle.prototype, "el", {
+                    get: function () { return getElement(this); },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(RouteTitle, "watchers", {
+                    get: function () {
+                        return {
+                            "pageTitle": ["updateDocumentTitle"]
+                        };
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                return RouteTitle;
+            }());
+            exports('stencil_route_title', RouteTitle);
+            ActiveRouter.injectProps(RouteTitle, [
+                'titleSuffix',
+            ]);
+        }
+    };
+});

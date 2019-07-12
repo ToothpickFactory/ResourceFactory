@@ -1,0 +1,31 @@
+import { createEvent as __stencil_createEvent } from "@stencil/core";
+import { getConnect as __stencil_getConnect } from "@stencil/core";
+import { getContext as __stencil_getContext } from "@stencil/core";
+import { getElement as __stencil_getElement } from "@stencil/core";
+import { Host as __stencil_Host } from "@stencil/core";
+import { h as __stencil_h } from "@stencil/core";
+import { registerInstance as __stencil_registerInstance } from "@stencil/core";
+import ActiveRouter from '../../global/active-router';
+// Get the URL for this route link without the root from the router
+const getUrl = (url, root) => {
+    // Don't allow double slashes
+    if (url.charAt(0) == '/' && root.charAt(root.length - 1) == '/') {
+        return root.slice(0, root.length - 1) + url;
+    }
+    return root + url;
+};
+export class Redirect {
+    constructor(hostRef) {
+        __stencil_registerInstance(this, hostRef);
+    }
+    componentWillLoad() {
+        if (this.history && this.root && this.url) {
+            return this.history.replace(getUrl(this.url, this.root));
+        }
+    }
+    get el() { return __stencil_getElement(this); }
+}
+ActiveRouter.injectProps(Redirect, [
+    'history',
+    'root'
+]);

@@ -1,0 +1,45 @@
+System.register(['./p-ad6259f2.system.js'], function (exports) {
+    'use strict';
+    var registerInstance, h;
+    return {
+        setters: [function (module) {
+                registerInstance = module.r;
+                h = module.h;
+            }],
+        execute: function () {
+            var AsyncContent = /** @class */ (function () {
+                function AsyncContent(hostRef) {
+                    registerInstance(this, hostRef);
+                    this.content = '';
+                }
+                AsyncContent.prototype.componentWillLoad = function () {
+                    if (this.documentLocation != null) {
+                        return this.fetchNewContent(this.documentLocation);
+                    }
+                };
+                AsyncContent.prototype.fetchNewContent = function (newDocumentLocation) {
+                    var _this = this;
+                    return fetch(newDocumentLocation)
+                        .then(function (response) { return response.text(); })
+                        .then(function (data) {
+                        _this.content = data;
+                    });
+                };
+                AsyncContent.prototype.render = function () {
+                    return (h("div", { innerHTML: this.content }));
+                };
+                Object.defineProperty(AsyncContent, "watchers", {
+                    get: function () {
+                        return {
+                            "documentLocation": ["fetchNewContent"]
+                        };
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                return AsyncContent;
+            }());
+            exports('stencil_async_content', AsyncContent);
+        }
+    };
+});

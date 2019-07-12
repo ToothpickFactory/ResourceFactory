@@ -1,0 +1,76 @@
+System.register(['./p-ad6259f2.system.js', './p-f62c0fdc.system.js'], function (exports) {
+    'use strict';
+    var registerInstance, getElement, ActiveRouter;
+    return {
+        setters: [function (module) {
+                registerInstance = module.r;
+                getElement = module.c;
+            }, function (module) {
+                ActiveRouter = module.A;
+            }],
+        execute: function () {
+            var StencilRouterPrompt = /** @class */ (function () {
+                function StencilRouterPrompt(hostRef) {
+                    registerInstance(this, hostRef);
+                    this.when = true;
+                    this.message = '';
+                }
+                StencilRouterPrompt.prototype.enable = function (message) {
+                    if (this.unblock) {
+                        this.unblock();
+                    }
+                    if (this.history) {
+                        this.unblock = this.history.block(message);
+                    }
+                };
+                StencilRouterPrompt.prototype.disable = function () {
+                    if (this.unblock) {
+                        this.unblock();
+                        this.unblock = undefined;
+                    }
+                };
+                StencilRouterPrompt.prototype.componentWillLoad = function () {
+                    if (this.when) {
+                        this.enable(this.message);
+                    }
+                };
+                StencilRouterPrompt.prototype.updateMessage = function (newMessage, prevMessage) {
+                    if (this.when) {
+                        if (!this.when || prevMessage !== newMessage) {
+                            this.enable(this.message);
+                        }
+                    }
+                    else {
+                        this.disable();
+                    }
+                };
+                StencilRouterPrompt.prototype.componentDidUnload = function () {
+                    this.disable();
+                };
+                StencilRouterPrompt.prototype.render = function () {
+                    return null;
+                };
+                Object.defineProperty(StencilRouterPrompt.prototype, "el", {
+                    get: function () { return getElement(this); },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(StencilRouterPrompt, "watchers", {
+                    get: function () {
+                        return {
+                            "message": ["updateMessage"],
+                            "when": ["updateMessage"]
+                        };
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                return StencilRouterPrompt;
+            }());
+            exports('stencil_router_prompt', StencilRouterPrompt);
+            ActiveRouter.injectProps(StencilRouterPrompt, [
+                'history',
+            ]);
+        }
+    };
+});

@@ -1,0 +1,123 @@
+System.register(['./p-ad6259f2.system.js'], function (exports) {
+    'use strict';
+    var registerInstance, h;
+    return {
+        setters: [function (module) {
+                registerInstance = module.r;
+                h = module.h;
+            }],
+        execute: function () {
+            function ResourceFactory(options) {
+                if (options === void 0) { options = {}; }
+                var resources = [];
+                var subs = [];
+                return function (Clazz) {
+                    Clazz.resources = resources;
+                    Clazz.subs = subs;
+                    // Publish/Subscribe
+                    Clazz.publish = function () {
+                        Clazz.subs.forEach(function (sub) { return sub(Clazz.resources); });
+                    };
+                    Clazz.unsubscribe = function (sub) {
+                        Clazz.subs = Clazz.subs.filter(function (_sub) { return _sub !== sub; });
+                    };
+                    Clazz.subscribe = function (sub) {
+                        Clazz.subs.push(sub);
+                        sub(this.resources);
+                        return function () { return Clazz.unsubscribe(sub); };
+                    };
+                    // CRUD Methods
+                    Clazz.find = options.find || null;
+                    Clazz.create = function () {
+                        var resource = new (Clazz.bind.apply(Clazz, [void 0].concat(arguments)))();
+                        Clazz.add(resource);
+                        return resource;
+                    };
+                    Clazz.add = function (resource) {
+                        Clazz.resources = Clazz.resources.concat([resource]);
+                        Clazz.publish();
+                    };
+                    Clazz.remove = function (resource) {
+                        Clazz.resources = Clazz.resources.filter(function (_resource) { return _resource !== resource; });
+                        Clazz.publish();
+                    };
+                };
+            }
+            var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+                var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+                if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+                    r = Reflect.decorate(decorators, target, key, desc);
+                else
+                    for (var i = decorators.length - 1; i >= 0; i--)
+                        if (d = decorators[i])
+                            r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+                return c > 3 && r && Object.defineProperty(target, key, r), r;
+            };
+            var Todo = /** @class */ (function () {
+                function Todo(text) {
+                    this.text = text;
+                }
+                return Todo;
+            }());
+            Todo = __decorate([
+                ResourceFactory()
+            ], Todo);
+            var AppRoot = /** @class */ (function () {
+                function AppRoot(hostRef) {
+                    registerInstance(this, hostRef);
+                    this.todoViews = [];
+                    this.subscriberCount = 0;
+                }
+                AppRoot.prototype.componentWillLoad = function () {
+                    var _this = this;
+                    Todo.subscribe(function () { return _this.subscriberCount = Todo.subs.length; });
+                };
+                AppRoot.prototype.addTodoView = function () {
+                    this.todoViews = this.todoViews.concat([h("todo-view", null)]);
+                };
+                AppRoot.prototype.addTodo = function (e) {
+                    e.preventDefault();
+                    var newTodo = e.target.children.todo.value;
+                    Todo.create(newTodo);
+                    e.target.reset();
+                };
+                AppRoot.prototype.render = function () {
+                    var _this = this;
+                    return [
+                        h("header", null, h("h1", null, "Resource Factory Test")),
+                        h("aside", null, h("button", { onClick: function () { return _this.addTodoView(); } }, "Create New Todo View"), h("form", { onSubmit: function (e) { return _this.addTodo(e); } }, h("h4", null, "Create new TODO"), h("input", { type: "text", name: "todo" }), h("button", { type: "submit" }, "+"))),
+                        h("main", null, this.todoViews)
+                    ];
+                };
+                Object.defineProperty(AppRoot, "style", {
+                    get: function () { return "STYLE_TEXT_PLACEHOLDER:app-root"; },
+                    enumerable: true,
+                    configurable: true
+                });
+                return AppRoot;
+            }());
+            exports('app_root', AppRoot);
+            var AppHome = /** @class */ (function () {
+                function AppHome(hostRef) {
+                    registerInstance(this, hostRef);
+                    this.todos = [];
+                }
+                AppHome.prototype.componentWillLoad = function () {
+                    var _this = this;
+                    this.unsubscribe = Todo.subscribe(function (todos) { return _this.todos = todos; });
+                };
+                AppHome.prototype.render = function () {
+                    var _this = this;
+                    return (h("div", { class: 'todo-view' }, h("ul", null, this.todos.map(function (todo) { return h("li", null, todo.text, h("button", { onClick: function () { return Todo.remove(todo); } }, "X")); })), h("button", { onClick: function () { return _this.unsubscribe(); } }, "Unsubscribe")));
+                };
+                Object.defineProperty(AppHome, "style", {
+                    get: function () { return "STYLE_TEXT_PLACEHOLDER:todo-view"; },
+                    enumerable: true,
+                    configurable: true
+                });
+                return AppHome;
+            }());
+            exports('todo_view', AppHome);
+        }
+    };
+});

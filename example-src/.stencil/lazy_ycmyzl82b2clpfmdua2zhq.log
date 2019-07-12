@@ -1,0 +1,36 @@
+import { createEvent as __stencil_createEvent } from "@stencil/core";
+import { getConnect as __stencil_getConnect } from "@stencil/core";
+import { getContext as __stencil_getContext } from "@stencil/core";
+import { getElement as __stencil_getElement } from "@stencil/core";
+import { Host as __stencil_Host } from "@stencil/core";
+import { h as __stencil_h } from "@stencil/core";
+import { registerInstance as __stencil_registerInstance } from "@stencil/core";
+import { h } from '@stencil/core';
+import { Todo } from '../../models/Todo/Todo';
+export class AppRoot {
+    constructor(hostRef) {
+        __stencil_registerInstance(this, hostRef);
+        this.todoViews = [];
+        this.subscriberCount = 0;
+    }
+    componentWillLoad() {
+        Todo.subscribe(() => this.subscriberCount = Todo.subs.length);
+    }
+    addTodoView() {
+        this.todoViews = [...this.todoViews, h("todo-view", null)];
+    }
+    addTodo(e) {
+        e.preventDefault();
+        const newTodo = e.target.children.todo.value;
+        Todo.create(newTodo);
+        e.target.reset();
+    }
+    render() {
+        return [
+            h("header", null, h("h1", null, "Resource Factory Test")),
+            h("aside", null, h("button", { onClick: () => this.addTodoView() }, "Create New Todo View"), h("form", { onSubmit: (e) => this.addTodo(e) }, h("h4", null, "Create new TODO"), h("input", { type: "text", name: "todo" }), h("button", { type: "submit" }, "+"))),
+            h("main", null, this.todoViews)
+        ];
+    }
+    static get style() { return "STYLE_TEXT_PLACEHOLDER:app-root"; }
+}

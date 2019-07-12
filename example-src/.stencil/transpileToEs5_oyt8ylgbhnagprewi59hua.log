@@ -1,0 +1,15 @@
+System.register(['./p-1047d59d.system.js'], function () {
+    'use strict';
+    var patchBrowser, bootstrapLazy;
+    return {
+        setters: [function (module) {
+                patchBrowser = module.p;
+                bootstrapLazy = module.b;
+            }],
+        execute: function () {
+            patchBrowser().then(function (resourcesUrl) {
+                return bootstrapLazy([["p-qkiue7sj.system", [[0, "app-root", { "todoViews": [32], "subscriberCount": [32] }], [0, "todo-view", { "todos": [32] }]]]], { resourcesUrl: resourcesUrl });
+            });
+        }
+    };
+});
