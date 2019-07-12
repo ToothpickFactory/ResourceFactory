@@ -2,7 +2,7 @@
   "hosting": {
     "headers": [
       {
-        "source": "/build/p-*",
+        "source": "/ResourceFactory/build/p-*",
         "headers": [
           {
             "key": "Cache-Control",

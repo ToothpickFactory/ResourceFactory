@@ -1,0 +1,1 @@
+import{p as o,b as s}from"./p-8d620762.js";o().then(o=>s([["p-wcidzhea",[[0,"app-root",{todoViews:[32],subscriberCount:[32]}],[0,"todo-view",{todos:[32]}]]]],{resourcesUrl:o}));
