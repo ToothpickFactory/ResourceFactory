@@ -11,7 +11,7 @@ export const config: Config = {
       // comment the following line to disable service workers in production
       serviceWorker: null,
       dir: '../docs',
-      baseUrl: 'https://toothpickfactory.github.io/ResourceFactory/'
+      baseUrl: 'https://toothpickfactory.github.io/'
     }
   ]
 };
